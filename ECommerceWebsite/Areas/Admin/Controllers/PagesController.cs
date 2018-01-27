@@ -169,5 +169,30 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+
+        // GET: /Admin/Pages/PageDetails/id
+        [HttpGet]
+        public ActionResult PageDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            using (Db db = new Db())
+            {
+                PageDto page = db.Pages.Find(id);
+
+                if (page == null)
+                {
+                    return HttpNotFound();
+                }
+
+                PageViewModel model = new PageViewModel(page);
+
+                return View(model);
+            }
+        }
     }
 }
