@@ -126,6 +126,7 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
 
         // POST: /Admin/Pages/EditPages/id
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditPage(PageViewModel model)
         {
             if (!ModelState.IsValid)
@@ -192,6 +193,46 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
                 PageViewModel model = new PageViewModel(page);
 
                 return View(model);
+            }
+        }
+
+
+        // GET: /Admin/Pages/DeletePage/id
+        [HttpGet]
+        public ActionResult DeletePage(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            using(Db db = new Db())
+            {
+                PageDto page = db.Pages.Find(id);
+
+                if (page == null)
+                {
+                    return HttpNotFound();
+                }
+
+                PageViewModel model = new PageViewModel(page);
+
+                return View(model);
+            }
+        }
+
+
+        // POST: /Admin/Pages/DeletePage/id
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePage(int id)
+        {
+            using(Db db = new Db())
+            {
+                PageDto page = db.Pages.Find(id);
+                db.Pages.Remove(page);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
         }
     }

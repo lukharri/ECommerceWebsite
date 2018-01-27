@@ -54,10 +54,13 @@ else
                            style="border-radius: 3px;">
                             <span class="glyphicon glyphicon-list"></span>
                         </a>
-                        <a type="button" class="btn btn-danger btn-sm" href="@Url.Action("DeletePage", new { id = item.Id })"
-                           style="border-radius: 3px;">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </a>
+                        @if (item.Slug != "home")
+                        {
+                            <a type="button" class="btn btn-danger btn-sm" href="@Url.Action("DeletePage", new { id = item.Id })"
+                               style="border-radius: 3px;">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        }
                     </div>
                 </td>
             </tr>
