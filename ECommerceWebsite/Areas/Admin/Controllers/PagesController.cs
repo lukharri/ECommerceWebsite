@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ECommerceWebsite.Models.Data;
+using ECommerceWebsite.Models.ViewModels.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,18 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
         // GET: Admin/Pages
         public ActionResult Index()
         {
-            return View();
+            List<PageViewModel> pages;
+
+            using (Db db = new Db())
+            {
+                pages = db.Pages
+                    .ToArray()
+                    .OrderBy(x => x.Sorting)
+                    .Select(x => new PageViewModel(x))
+                    .ToList();
+            }
+
+            return View(pages);
         }
     }
 }

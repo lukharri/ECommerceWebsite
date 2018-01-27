@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ECommerceWebsite.Models.ViewModels.Pages.PageViewModel>
+
+@{
+    ViewBag.Title = "Pages";
+}
+
+<h3>Pages</h3>
+
+<p>
+    @Html.ActionLink("Create Page", "CreatePage")
+</p>
+
+@if (!Model.Any())
+{
+    <h3 class="text-center">There are no pages.</h3>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Slug)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HasSideBar)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Slug)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasSideBar)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditPage", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "PageDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "DeletePage", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+}
