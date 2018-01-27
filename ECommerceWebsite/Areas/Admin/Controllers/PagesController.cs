@@ -2,7 +2,9 @@
 using ECommerceWebsite.Models.ViewModels.Pages;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -92,6 +94,79 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
 
                 return RedirectToAction("CreatePage");
 
+            }
+        }
+
+
+        // GET: /Admin/Pages/EditPage/id
+        [HttpGet]
+        public ActionResult EditPage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            using(Db db = new Db())
+            {
+                PageDto page = db.Pages.Find(id);
+
+                if (page == null)
+                {
+                    return HttpNotFound();
+                }
+
+                PageViewModel model = new PageViewModel(page);
+
+                return View(model);
+            }
+
+        }
+
+
+        // POST: /Admin/Pages/EditPages/id
+        [HttpPost]
+        public ActionResult EditPage(PageViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            using (Db db = new Db())
+            {
+                string slug = "home";
+                var id = model.Id;
+
+                PageDto page = db.Pages.Find(id);
+
+                if(model.Slug != "home")
+                {
+                    if (string.IsNullOrWhiteSpace(model.Slug))
+                    {
+                        slug = model.Title.Replace(" ", "-").ToLower();
+                    }
+                    else
+                    {
+                        slug = model.Slug.Replace(" ", "-").ToLower();
+                    }
+                }
+
+                if(db.Pages.Where(x => x.Id != id).Any(x => x.Title == model.Title) || 
+                    db.Pages.Where(x => x.Id != id).Any(x => x.Slug == slug))
+                {
+                    ModelState.AddModelError("", "That title or slug already exists.");
+                    return View(model);
+                }
+
+                page.Title = model.Title;
+                page.Slug = slug;
+                page.Body = model.Body;
+                page.HasSideBar = model.HasSideBar;
+
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
             }
         }
     }
