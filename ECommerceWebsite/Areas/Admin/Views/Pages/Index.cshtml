@@ -6,9 +6,11 @@
 
 <h3>Pages</h3>
 
-<p>
-    @Html.ActionLink("Create Page", "CreatePage")
-</p>
+<a type="button" class="btn btn-primary btn-sm" href="@Url.Action("CreatePage")" style="margin-top: 5px; margin-bottom: 15px;">
+    <span class="glyphicon glyphicon-plus"></span>
+    <span>Create New</span>
+</a>
+
 
 @if (!Model.Any())
 {
@@ -43,9 +45,18 @@ else
                     @Html.DisplayFor(modelItem => item.HasSideBar)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "EditPage", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "PageDetails", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "DeletePage", new { id = item.Id })
+                    <a type="button" class="btn btn-primary btn-sm" href="@Url.Action("EditPage", new { id = item.Id })" 
+                       style="border-radius: 3px;">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a type="button" class="btn btn-success btn-sm" href="@Url.Action("PageDetails", new { id = item.Id })" 
+                       style="border-radius: 3px;">
+                        <span class="glyphicon glyphicon-list"></span>
+                    </a>
+                    <a type="button" class="btn btn-danger btn-sm" href="@Url.Action("DeletePage", new { id = item.Id })" 
+                       style="border-radius: 3px;">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
                 </td>
             </tr>
         }

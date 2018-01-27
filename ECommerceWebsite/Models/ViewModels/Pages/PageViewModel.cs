@@ -39,7 +39,7 @@ namespace ECommerceWebsite.Models.ViewModels.Pages
 
         public int Sorting { get; set; }
 
-        [DisplayName("Has Side Bar")]
+        [DisplayName("Side Bar")]
         public bool HasSideBar { get; set; }
 
     }
