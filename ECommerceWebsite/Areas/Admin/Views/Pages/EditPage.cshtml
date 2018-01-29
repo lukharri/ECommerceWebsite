@@ -6,6 +6,15 @@
 
 <h3>Edit Page</h3>
 
+@if (TempData["SM"] != null)
+{
+    <div class="alert alert-success success-msg">
+        @TempData["SM"]
+    </div>
+}
+
+<hr />
+
 @using (Html.BeginForm("EditPage", "Pages"))
 {
     @Html.AntiForgeryToken()
@@ -53,9 +62,19 @@
                 <input type="submit" value="Save" class="btn btn-default btn-success" />
             </div>
         </div>
+        <hr />
     </div>
 }
 
 <div>
     @Html.Partial("_BackToListButtonPartial")
 </div>
+
+@section Scripts {
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+
+    <script>
+    CKEDITOR.replace("Body");
+    </script>
+
+}

@@ -7,3 +7,5 @@ div .table-buttons { position: relative; left: 315px; }
 table.sorting tr:not(.home) { cursor: pointer; }
 
 .ui-state-highlight { border: 1px dashed #ccc; }
+
+div .success-msg { width: 250px; text-align: center; }

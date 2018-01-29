@@ -89,7 +89,7 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
 
                 // tempData: similar to ViewBag but persists after the next request
                 // 
-                TempData["SM"] = "You have successfully created a new page.";
+                TempData["SM"] = "Page successfully created.";
 
                 return RedirectToAction("CreatePage");
 
@@ -166,7 +166,9 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
 
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                TempData["SM"] = "Page successfully edited.";
+
+                return RedirectToAction("EditPage");
             }
         }
 

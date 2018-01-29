@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ECommerceWebsite.Models.ViewModels.Pages
 {
@@ -34,6 +35,7 @@ namespace ECommerceWebsite.Models.ViewModels.Pages
         public string Slug { get; set; }
 
         [Required]
+        [AllowHtml]
         [StringLength(int.MaxValue, MinimumLength = 3)]
         public string Body { get; set; }
 

@@ -6,6 +6,7 @@
 
 <h3>Page Details</h3>
 
+<hr />
 <div>
     <dl class="dl-horizontal">
         <dt>
@@ -29,16 +30,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Body)
+            @Html.Raw(Model.Body)
         </dd>
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.Sorting)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sorting)
-        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.HasSideBar)
