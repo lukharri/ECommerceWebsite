@@ -9,5 +9,7 @@ namespace ECommerceWebsite.Models.Data
     public class Db : DbContext
     {
         public DbSet<PageDto> Pages { get; set; }
+        public DbSet<SidebarDto> Sidebars { get; set; }
+
     }
 }

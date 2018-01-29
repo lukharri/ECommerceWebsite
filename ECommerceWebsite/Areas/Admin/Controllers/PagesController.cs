@@ -1,4 +1,5 @@
 ﻿using ECommerceWebsite.Models.Data;
+using ECommerceWebsite.Models.ViewModels;
 using ECommerceWebsite.Models.ViewModels.Pages;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,7 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
 {
     public class PagesController : Controller
     {
-        //private Db db = new Db();
-
-        // GET: /Admin/Pages
+        // GET: /Admin/Index
         public ActionResult Index()
         {
             List<PageViewModel> pages;
@@ -259,6 +258,37 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
                     count++;
                 }
             }
+        }
+
+
+        // GET: /Admin/Pages/EditSidebar
+        [HttpGet]
+        public ActionResult EditSidebar()
+        {
+            using (Db db = new Db())
+            {
+                SidebarDto dto = db.Sidebars.Find(1);
+                SidebarViewModel model = new SidebarViewModel(dto);
+                return View(model);
+            }
+        }
+
+
+        // POST: /Admin/Pages/EditSidebar/id
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSidebar(SidebarViewModel model)
+        {
+            using(Db db = new Db())
+            {
+                var dto = db.Sidebars.Find(1);
+                dto.Body = model.Body;
+                db.SaveChanges();
+            }
+
+            TempData["SM"] = "Sidebar successfully edited.";
+
+            return RedirectToAction("EditSidebar");
         }
     }
 }
