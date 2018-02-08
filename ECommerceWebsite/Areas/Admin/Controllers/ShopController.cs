@@ -33,6 +33,26 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
         [HttpPost]
         public string AddNewCategory(string catName)
         {
+            string id;
+
+            using (Db db = new Db())
+            {
+                if (db.Categories.Any(x => x.Name == catName))
+                    return "titletaken";
+                
+                CategoryDto dto = new CategoryDto();
+
+                dto.Name = catName;
+                dto.Slug = catName.Replace(" ", "-").ToLower();
+                dto.Sorting = 100;
+                db.Categories.Add(dto);
+                db.SaveChanges();
+
+                //id = db.Categories.FirstOrDefault(x => x.Name == catName).ToString();
+                id = dto.Id.ToString();
+            }
+
+            return id;
 
         }
     }

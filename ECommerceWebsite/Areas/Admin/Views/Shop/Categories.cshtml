@@ -9,8 +9,7 @@
 <div class="new-cat">
     <input type="text" id="new-cat-name" />
     <p>
-        @*<a href="#" id="new-cat-a">Create Category</a>*@
-        <a type="button" class="btn btn-primary btn-sm" href="@Url.Action("CreateCategory")" style="margin-top: 5px; margin-bottom: 15px;">
+        <a id="new-cat-a" type="button" class="btn btn-primary btn-sm" href=# style="margin-top: 5px; margin-bottom: 15px;">
             <span class="glyphicon glyphicon-plus"></span>
             <span>Create</span>
         </a>
@@ -107,7 +106,7 @@ else
                         if (!$("table#pages").length) {
                             location.reload();
                         } else {
-                            ajaxText.html("<span class='alert alert-success'>Category successfully created.</span>");
+                            ajaxText.html("<span class='alert alert-success'>Category successfully created.");
                             setTimeout(function () {
                                 ajaxText.fadeOut("fast", function () {
                                     ajaxText.html("<img src=/Content/img/ajax-loader.gif />");
@@ -120,7 +119,7 @@ else
                             var toAppend = $("table#pages tbody tr:last").clone();
                             toAppend.attr("id", "id_" + data);
                             toAppend.find("#item_Name").val(catName);
-                            toAppend.find$("a.delete").attr("href", "/admin/shop/DeleteCategory/" + data);
+                            toAppend.find("a.delete").attr("href", "/admin/shop/DeleteCategory/" + data);
                             table.append(toAppend);
                             table.sortable("refresh");
                         }
