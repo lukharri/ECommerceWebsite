@@ -12,4 +12,8 @@ div .success-msg { width: 250px; text-align: center; }
 
 div.new-cat { margin-top: 30px; position: relative; }
 
+input#new-cat-name { margin-bottom: 10px; }
+
 span.ajax-text { display: none; }
+
+a#delete-category-btn { margin-left: -680px; margin-top: 2px; }

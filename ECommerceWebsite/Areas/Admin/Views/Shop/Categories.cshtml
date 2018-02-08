@@ -9,7 +9,12 @@
 <div class="new-cat">
     <input type="text" id="new-cat-name" />
     <p>
-        <a href="#" id="new-cat-a">Create Category</a>
+        @*<a href="#" id="new-cat-a">Create Category</a>*@
+        <a type="button" class="btn btn-primary btn-sm" href="@Url.Action("CreateCategory")" style="margin-top: 5px; margin-bottom: 15px;">
+            <span class="glyphicon glyphicon-plus"></span>
+            <span>Create</span>
+        </a>
+
         <span class="ajax-text">
             <img src="~/Content/img/ajax-loader.gif" />
         </span>
@@ -38,9 +43,10 @@ else
                 </td>
                 <td>
                     <a type="button" class="btn btn-danger btn-sm"
+                       id="delete-category-btn"
                        href="@Url.Action("DeleteCategory", new { id = item.Id, @class="delete" } )"
                        style="border-radius: 3px;">
-                        <span class="glyphicon glyphicon-trash"></span>
+                        <span  class="glyphicon glyphicon-trash"></span>
                     </a>
                 </td>
             </tr>
@@ -57,7 +63,70 @@ else
         $(function () {
 
             // Add new category
+            var newCatA = $("a#new-cat-a");
+            var newCatTextInput = $("#new-cat-name");
+            var ajaxText = $("span.ajax-text");
+            var table = $("table#pages tbody");
 
+            newCatTextInput.keyup(function (e) {
+                if (e.keyCode == 13) {
+                    newCatA.click();
+                }
+            });
+
+            newCatA.click(function (e) {
+                e.preventDefault();
+
+                var catName = newCatTextInput.val();
+
+                if (catName.length < 2) {
+                    alert("Category name must be at least 2 characters long.");
+                    return false; 
+                }
+
+                ajaxText.show();
+
+                var url = "/admin/shop/AddNewCategory";
+
+                // AJAX call for creating a new category
+                $.post(url, { catName: catName }, function (data) {
+                    var response = data.trim();
+
+                    // check if category name already exists
+                    if (response == 'titletaken') {
+                        ajaxText.html("<span class='alert alert-danger'>Category name already exists.</span>");
+                        setTimeout(function () {
+                            ajaxText.fadeOut("fast", function () {
+                                ajaxText.html("<img src=/Content/img/ajax-loader.gif />");
+                            });
+                        }, 2000);
+                        return false;
+
+                    // check if categories table is present before adding another row to it
+                    } else {
+                        if (!$("table#pages").length) {
+                            location.reload();
+                        } else {
+                            ajaxText.html("<span class='alert alert-success'>Category successfully created.</span>");
+                            setTimeout(function () {
+                                ajaxText.fadeOut("fast", function () {
+                                    ajaxText.html("<img src=/Content/img/ajax-loader.gif />");
+                                });
+                            }, 2000);
+
+                            newCatTextInput.val("");
+
+                            // Add a new row to category table w/category name
+                            var toAppend = $("table#pages tbody tr:last").clone();
+                            toAppend.attr("id", "id_" + data);
+                            toAppend.find("#item_Name").val(catName);
+                            toAppend.find$("a.delete").attr("href", "/admin/shop/DeleteCategory/" + data);
+                            table.append(toAppend);
+                            table.sortable("refresh");
+                        }
+                    }
+                });
+            });
 
 
             // DRAG N' DROP function for sorting pages

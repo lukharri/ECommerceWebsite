@@ -11,6 +11,7 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
     public class ShopController : Controller
     {
         // GET: Admin/Shop/Categories
+        [HttpGet]
         public ActionResult Categories()
         {
             List<CategoryViewModel> categories;
@@ -25,6 +26,14 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
             }
 
             return View(categories);
+        }
+
+
+        // POST: /admin/shop/AddNewCategory
+        [HttpPost]
+        public string AddNewCategory(string catName)
+        {
+
         }
     }
 }
