@@ -4,42 +4,77 @@
     ViewBag.Title = "Categories";
 }
 
-<h2>Categories</h2>
+<h3> Categories</h3>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Slug)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sorting)
-        </th>
-        <th></th>
-    </tr>
+<div class="new-cat">
+    <input type="text" id="new-cat-name" />
+    <p>
+        <a href="#" id="new-cat-a">Create Category</a>
+        <span class="ajax-text">
+            <img src="~/Content/img/ajax-loader.gif" />
+        </span>
+    </p>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Slug)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sorting)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+@if (!Model.Any())
+{
+    <h3 class="text-center">There are no categories.</h3>
+}
+else
+{
+    <table class="table sorting" id="pages">
+        <tr class="home">
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.EditorFor(modelItem => item.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </td>
+                <td>
+                    <a type="button" class="btn btn-danger btn-sm"
+                       href="@Url.Action("DeleteCategory", new { id = item.Id, @class="delete" } )"
+                       style="border-radius: 3px;">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
 }
 
-</table>
+@section Scripts {
+  
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+
+    <script>
+        $(function () {
+
+            // Add new category
+
+
+
+            // DRAG N' DROP function for sorting pages
+            // http://api.jqueryui.com/sortable/
+            $("table#pages tbody").sortable({
+                items: "tr:not(.home)",
+                placeholder: "ui-state-highlight",
+                update: function () {
+                    var ids = $("table#pages tbody").sortable("serialize");
+                    var url = "/Admin/Pages/ReorderPages";
+
+                    $.post(url, ids, function () {
+
+                    });
+                }
+            });
+        });
+
+    </script>
+}
