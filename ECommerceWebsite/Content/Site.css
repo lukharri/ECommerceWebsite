@@ -12,8 +12,10 @@ div .success-msg { width: 250px; text-align: center; }
 
 div.new-cat { margin-top: 30px; position: relative; }
 
-input#new-cat-name { margin-bottom: 15px; }
+input#new-cat-name { margin-bottom: 15px; margin-top: -10px; }
 
 span.ajax-text { display: none; }
 
-a#delete-category-btn { margin-left: -680px; margin-top: 2px; }
+a#delete-category-btn { margin-left: -610px; margin-top: 2px; }
+
+table.sorting.categories td { padding: 20px !important; }
