@@ -106,7 +106,7 @@
         }
 
         $.post(url, { newCatName: newCatName, id: id }, function (data) {
-            var resonse = data.trim();
+            var response = data.trim();
 
             if (response == "titletaken") {
                 $this.val(originalTextBoxValue);
