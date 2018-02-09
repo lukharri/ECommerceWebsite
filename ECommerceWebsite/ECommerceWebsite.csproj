@@ -167,6 +167,7 @@
     <Content Include="Areas\Admin\Views\Pages\PageDetails.cshtml" />
     <Content Include="Areas\Admin\Views\Pages\DeletePage.cshtml" />
     <Content Include="Areas\Admin\Views\Pages\EditSidebar.cshtml" />
+    <Content Include="Scripts\categories.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\CHANGES.html" />
     <Content Include="Scripts\ckeditor\ckeditor.asp" />

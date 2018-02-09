@@ -19,3 +19,5 @@ span.ajax-text { display: none; }
 a#delete-category-btn { margin-left: -610px; margin-top: 2px; }
 
 table.sorting.categories td { padding: 20px !important; }
+
+.ajax-div-td { position: absolute; }

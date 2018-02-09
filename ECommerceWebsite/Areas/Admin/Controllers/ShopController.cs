@@ -102,28 +102,28 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
 
 
         // GET: /Admin/Pages/DeleteCategory/id
-        [HttpGet]
-        public ActionResult DeleteCategory(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //[HttpGet]
+        //public ActionResult DeleteCategory(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            using (Db db = new Db())
-            {
-                CategoryDto category = db.Categories.Find(id);
+        //    using (Db db = new Db())
+        //    {
+        //        CategoryDto category = db.Categories.Find(id);
 
-                if (category == null)
-                {
-                    return HttpNotFound();
-                }
+        //        if (category == null)
+        //        {
+        //            return HttpNotFound();
+        //        }
 
-                CategoryViewModel model = new CategoryViewModel(category);
+        //        CategoryViewModel model = new CategoryViewModel(category);
 
-                return View(model);
-            }
-        }
+        //        return View(model);
+        //    }
+        //}
 
 
         // POST: /Admin/Shop/DeleteCategory/id
