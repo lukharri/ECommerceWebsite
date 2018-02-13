@@ -1,5 +1,6 @@
 ﻿using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Data;
+using ECommerceWebsite.Models.ViewModels.Shop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -178,5 +179,40 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
             return "ok";
         }
 
+
+        // GET: /Admin/Shop/AddProduct
+        [HttpGet]
+        public ActionResult AddProduct()
+        {
+            ProductViewModel model = new ProductViewModel();
+
+            using(Db db = new Models.Data.Db())
+            {
+                model.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
+
+            }
+            return View(model);
+        }
+
+
+        // POST: /Admin/Shop/AddProduct
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AddProduct(ProductViewModel product)
+        //{
+        //    ProductDto dto = new ProductDto();
+        //    dto.Id = product.Id;
+        //    dto.Name = product.Name;
+        //    dto.Slug = product.Slug;
+        //    dto.Description = product.Description;
+        //    dto.Price = product.Price;
+
+        //    using(Db db = new Db())
+        //    {
+        //        db.Products.Add(dto);
+        //        db.SaveChanges();
+        //    }
+        //    return View();
+        //}
     }
 }
