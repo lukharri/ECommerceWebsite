@@ -186,7 +186,7 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
         {
             ProductViewModel model = new ProductViewModel();
 
-            using(Db db = new Models.Data.Db())
+            using(Db db = new Db())
             {
                 model.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
 
@@ -195,24 +195,24 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
         }
 
 
-        // POST: /Admin/Shop/AddProduct
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult AddProduct(ProductViewModel product)
-        //{
-        //    ProductDto dto = new ProductDto();
-        //    dto.Id = product.Id;
-        //    dto.Name = product.Name;
-        //    dto.Slug = product.Slug;
-        //    dto.Description = product.Description;
-        //    dto.Price = product.Price;
+        //POST: /Admin/Shop/AddProduct
+       [HttpPost]
+       [ValidateAntiForgeryToken]
+        public ActionResult AddProduct(ProductViewModel model, HttpPostedFileBase file)
+        {
+            ProductDto dto = new ProductDto();
+            dto.Id = model.Id;
+            dto.Name = model.Name;
+            dto.Slug = model.Slug;
+            dto.Description = model.Description;
+            dto.Price = model.Price;
 
-        //    using(Db db = new Db())
-        //    {
-        //        db.Products.Add(dto);
-        //        db.SaveChanges();
-        //    }
-        //    return View();
-        //}
+            using (Db db = new Db())
+            {
+                db.Products.Add(dto);
+                db.SaveChanges();
+            }
+            return View();
+        }
     }
 }

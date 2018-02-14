@@ -40,7 +40,7 @@
                 }, 2000);
                 return false;
 
-                // check if categories table is present before adding another row to it
+            // check if categories table is present before adding another row to it
             } else {
                 if (!$("table#pages").length) {
                     location.reload();

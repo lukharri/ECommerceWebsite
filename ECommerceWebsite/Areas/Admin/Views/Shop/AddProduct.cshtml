@@ -49,7 +49,7 @@
             <label class="control-label col-md-2">Product Image</label>
             <div class="col-md-10">
                 <input type="file" name="file" id="image-upload" />
-                <img id="img-preview" src="#" />
+                <img id="image-preview" src="#" />
             </div>
         </div>
 
@@ -73,6 +73,8 @@
 
 @section Scripts {
 
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+
     <script>
         $(function () {
 
@@ -82,13 +84,13 @@
                     var reader = new FileReader();
 
                     reader.onload = function (e) {
-                        $("img#img-preview")
+                        $("img#image-preview")
                             .attr("src", e.target.result)
                             .width(200)
                             .height(200);
                     }
 
-                    reader.readAsDataURL(input.file[0]);
+                    reader.readAsDataURL(input.files[0]);
                 }
             }
 
