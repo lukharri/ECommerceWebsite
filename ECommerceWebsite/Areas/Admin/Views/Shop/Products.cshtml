@@ -1,0 +1,121 @@
+﻿@model IEnumerable<ECommerceWebsite.Models.ViewModels.Shop.ProductViewModel>
+
+@using PagedList.Mvc; 
+@using PagedList;
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<h4>Products</h4>
+
+<select id="select-category" name="SelectCategory">
+    <option value="0">Categories</option>
+    @foreach (var cat in ViewBag.Categories)
+    {
+        if (ViewBag.SelectedCategory == cat.Value)
+        {
+            <option selected="selected" value="@cat.Value">@cat.Text</option>
+        }
+        else
+        {
+            <option value="@cat.Value">@cat.Text</option>
+        }
+    }
+</select>
+
+@*<div class="dropdown" name="SelectCategory">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+        Categories
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        @foreach (var cat in ViewBag.Categories)
+        {
+            if (ViewBag.SelectedCategory == cat.Value)
+            {
+                <li id="select-category" value="@cat.Value"><a>@cat.Text</a></li>
+            }
+            else
+            {
+                <li id="select-category" value="@cat.Value"><a>@cat.Text</a></li>
+            }
+        }
+    </ul>
+</div>*@
+
+<br />
+<br />
+
+<a type="button" class="btn btn-primary btn-sm" href="@Url.Action("AddProduct", "Shop")" style="margin-top: 5px; margin-bottom: 15px;">
+    <span class="glyphicon glyphicon-plus"></span>
+    <span>Add Product</span>
+</a>
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Product Image
+        </th>
+        <th>
+            Edit
+        </th>
+        <th>
+            Delete 
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var product in ViewBag.OnePageOfProducts)
+    {
+        <tr>
+            <td>
+                @product.Name
+            </td>
+            <td>
+                @product.Description
+            </td>
+            <td>
+                $@product.Price
+            </td>
+            <td>
+                <a href="/admin/shop/EditProduct/@product.Id">
+                    <img id="product-image" src="~/Images/Uploads/Products/@product.Id/Thumbs/@product.ImageName" />
+                </a>
+            </td>
+            <td>
+                <div class="table-buttons">
+                    <a id="edit-product" type="button" class="btn btn-primary btn-sm" href="@Url.Action("EditProduct", new { id = product.Id })"
+                       style="border-radius: 3px;">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                </div>
+            </td>
+            <td>
+                <div class="table-buttons">
+                    <a id="delete-product" type="button" class="btn btn-danger btn-sm" href="@Url.Action("DeleteProduct", new { id = product.Id })"
+                       style="border-radius: 3px;">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </div>
+            </td>
+            <td></td>
+        </tr>
+    }
+
+</table>
+
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Products", new { page, catId = ViewBag.SelectedCategory }))
+
+@section Scripts {
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+}

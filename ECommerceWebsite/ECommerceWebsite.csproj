@@ -57,6 +57,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -153,12 +161,29 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Uploads\Products\10\orange2.jpg" />
+    <Content Include="Images\Uploads\Products\10\Thumbs\orange2.jpg" />
+    <Content Include="Images\Uploads\Products\11\grapes4.jpg" />
+    <Content Include="Images\Uploads\Products\11\Thumbs\grapes4.jpg" />
     <Content Include="Images\Uploads\Products\2\galadriel%27s path home large.jpg" />
     <Content Include="Images\Uploads\Products\2\Thumbs\galadriel%27s path home large.jpg" />
+    <Content Include="Images\Uploads\Products\4\blue3.png" />
+    <Content Include="Images\Uploads\Products\4\Thumbs\blue3.png" />
+    <Content Include="Images\Uploads\Products\5\Thumbs\yellow1.png" />
+    <Content Include="Images\Uploads\Products\5\yellow1.png" />
+    <Content Include="Images\Uploads\Products\6\pink2.png" />
+    <Content Include="Images\Uploads\Products\6\Thumbs\pink2.png" />
+    <Content Include="Images\Uploads\Products\7\red2.png" />
+    <Content Include="Images\Uploads\Products\7\Thumbs\red2.png" />
+    <Content Include="Images\Uploads\Products\8\apple4.jpg" />
+    <Content Include="Images\Uploads\Products\8\Thumbs\apple4.jpg" />
+    <Content Include="Images\Uploads\Products\9\grapefruit1.jpg" />
+    <Content Include="Images\Uploads\Products\9\Thumbs\grapefruit1.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -181,6 +206,7 @@
     <Content Include="Areas\Admin\Views\Shop\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shop\DeleteCategory.cshtml" />
     <Content Include="Areas\Admin\Views\Shop\AddProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\Products.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckeditor\ckeditor.php" />
     <Content Include="Scripts\ckeditor\ckeditor_basic.js" />
@@ -536,6 +562,7 @@
     <Content Include="Scripts\PreviewCategoryImage.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\SelectProductsFromCategory.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -554,11 +581,19 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Controllers\" />
     <Folder Include="fileman\" />
+    <Folder Include="Images\Uploads\Products\10\Gallery\Thumbs\" />
+    <Folder Include="Images\Uploads\Products\11\Gallery\Thumbs\" />
     <Folder Include="Images\Uploads\Products\1\Gallery\Thumbs\" />
     <Folder Include="Images\Uploads\Products\1\Thumbs\" />
     <Folder Include="Images\Uploads\Products\2\Gallery\Thumbs\" />
     <Folder Include="Images\Uploads\Products\3\Gallery\Thumbs\" />
     <Folder Include="Images\Uploads\Products\3\Thumbs\" />
+    <Folder Include="Images\Uploads\Products\4\Gallery\Thumbs\" />
+    <Folder Include="Images\Uploads\Products\5\Gallery\Thumbs\" />
+    <Folder Include="Images\Uploads\Products\6\Gallery\Thumbs\" />
+    <Folder Include="Images\Uploads\Products\7\Gallery\Thumbs\" />
+    <Folder Include="Images\Uploads\Products\8\Gallery\Thumbs\" />
+    <Folder Include="Images\Uploads\Products\9\Gallery\Thumbs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

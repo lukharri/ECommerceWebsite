@@ -1,6 +1,7 @@
 ﻿using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Data;
 using ECommerceWebsite.Models.ViewModels.Shop;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -198,8 +199,8 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
 
 
         //POST: /Admin/Shop/AddProduct
-       [HttpPost]
-       [ValidateAntiForgeryToken]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddProduct(ProductViewModel model, HttpPostedFileBase file)
         {
             if(!ModelState.IsValid)
@@ -321,6 +322,34 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
             #endregion
 
             return RedirectToAction("AddProduct");
+        }
+
+
+        // GET: /Admin/Shop/AddProduct
+        [HttpGet]
+        public ActionResult Products(int? page, int? catId)
+        {
+            List<ProductViewModel> products = new List<ProductViewModel>();
+
+            var pageNumber = page ?? 1;
+
+            using(Db db = new Db())
+            {
+                products = db.Products.ToArray()
+                     .Where(x => catId == null || catId == 0 || x.CategoryId == catId)
+                     .Select(x => new ProductViewModel(x))
+                     .ToList();
+
+                ViewBag.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
+
+                ViewBag.SelectedCategory = catId.ToString();
+            }
+
+            var onePageOfProducts = products.ToPagedList(pageNumber, 5);
+
+            ViewBag.OnePageOfProducts = onePageOfProducts;
+
+            return View(products);
         }
     }
 }

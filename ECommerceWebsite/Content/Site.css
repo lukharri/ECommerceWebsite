@@ -4,6 +4,10 @@ input, select, textarea { max-width: 350px; }
 
 div .table-buttons { position: relative; left: 315px; }
 
+a#edit-product { position: relative; right: 317px; }
+
+a#delete-product { position: relative; right: 311px; }
+
 table.sorting tr:not(.home) { cursor: pointer; }
 
 .ui-state-highlight { border: 1px dashed #ccc; }
@@ -23,3 +27,7 @@ table.sorting.categories td { padding: 20px !important; }
 .ajax-div-td { position: absolute; }
 
 img#image-preview { margin-top: 15px; border-radius: 3px; }
+
+img#product-image { border-radius: 2px; }
+
+select#select-category { color: #ffffff; background-color: #3276b1; border-radius: 3px; height: 33px; cursor: pointer; }

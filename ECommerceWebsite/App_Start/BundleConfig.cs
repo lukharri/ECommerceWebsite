@@ -30,6 +30,7 @@ namespace ECommerceWebsite
 
             bundles.Add(new ScriptBundle("~/bundles/admin").Include(
                        "~/Scripts/categories.js",
+                       "~/Scripts/SelectProductsFromCategory.js",
                        "~/Scripts/PreviewCategoryImage.js"));
 
 

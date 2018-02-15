@@ -116,9 +116,9 @@
             }
 
             setTimeout(function () {
-                ajaxDiv.fadeOut("fast", function () { 
+                ajaxDiv.fadeOut("fast", function () {
                     ajaxDiv.html("");
-                })
+                });
             }, 2000);
 
             }).done(function () {
