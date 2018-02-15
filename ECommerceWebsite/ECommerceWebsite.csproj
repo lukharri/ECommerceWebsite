@@ -157,6 +157,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Uploads\Products\2\galadriel%27s path home large.jpg" />
+    <Content Include="Images\Uploads\Products\2\Thumbs\galadriel%27s path home large.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -531,6 +533,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\PreviewCategoryImage.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -551,6 +554,11 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Controllers\" />
     <Folder Include="fileman\" />
+    <Folder Include="Images\Uploads\Products\1\Gallery\Thumbs\" />
+    <Folder Include="Images\Uploads\Products\1\Thumbs\" />
+    <Folder Include="Images\Uploads\Products\2\Gallery\Thumbs\" />
+    <Folder Include="Images\Uploads\Products\3\Gallery\Thumbs\" />
+    <Folder Include="Images\Uploads\Products\3\Thumbs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

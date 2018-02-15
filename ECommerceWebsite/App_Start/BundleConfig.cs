@@ -29,7 +29,8 @@ namespace ECommerceWebsite
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/admin").Include(
-                       "~/Scripts/categories.js"));
+                       "~/Scripts/categories.js",
+                       "~/Scripts/PreviewCategoryImage.js"));
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
