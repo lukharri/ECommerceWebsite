@@ -508,5 +508,37 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
             // redirect
             return RedirectToAction("EditProduct");
         }
+
+
+        // GET: /Admin/Shop/DeleteProduct/id
+        [HttpGet]
+        public ActionResult DeleteProduct(int? id)
+        {
+            ProductViewModel model;
+
+            using(Db db = new Db())
+            {
+                ProductDto dto = db.Products.Find(id);
+                model = new ProductViewModel(dto);
+            }
+
+            return View(model);
+        }
+
+
+        // POST: /Admin/Shop/DeletProduct/id
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteProduct(int id)
+        {
+            using(Db db = new Db())
+            {
+                ProductDto product = db.Products.FirstOrDefault(p => p.Id == id);
+                db.Products.Remove(product);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Products", "Shop");
+        }
     }
 }
