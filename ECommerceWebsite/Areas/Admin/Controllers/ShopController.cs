@@ -325,7 +325,7 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
         }
 
 
-        // GET: /Admin/Shop/AddProduct
+        // GET: /Admin/Shop/Products
         [HttpGet]
         public ActionResult Products(int? page, int? catId)
         {
@@ -350,6 +350,163 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
             ViewBag.OnePageOfProducts = onePageOfProducts;
 
             return View(products);
+        }
+
+
+        // GET: /Admin/Shop/EditProduct/id
+        [HttpGet]
+        public ActionResult EditProduct(int id)
+        {
+            ProductViewModel model;
+
+            using (Db db = new Db())
+            {
+                ProductDto dto = db.Products.Find(id);
+
+                if (dto == null)
+                {
+                    return Content("That product doesn't exist.");
+                }
+
+                model = new ProductViewModel(dto);
+
+                model.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
+
+                model.Images = Directory.EnumerateFiles(Server.MapPath("~/Images/Uploads/Products/" + id + "/Gallery/Thumbs"))
+                    .Select(fileName => Path.GetFileName(fileName));
+            }
+
+            return View(model);
+        }
+
+
+        // POST: /Admin/Shop/EditProduct
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProduct(ProductViewModel model, HttpPostedFileBase file)
+        {
+            // get product id
+            int id = model.Id;
+
+            // populate categories select list and images
+            using (Db db = new Models.Data.Db())
+            {
+                model.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
+            }
+
+            model.Images = Directory.EnumerateFiles(Server.MapPath("~/Images/Uploads/Products/" + id + "/Gallery/Thumbs"))
+                .Select(fileName => Path.GetFileName(fileName));
+
+            // check model state
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // make sure product name is unique
+            using(Db db = new Db())
+            {
+                if(db.Products.Where(p => p.Id != id).Any(p => p.Name == model.Name))
+                {
+                    ModelState.AddModelError("", "Product name already exists.");
+                    return View(model);
+                }
+            }
+
+            // update product
+            using(Db db = new Db())
+            {
+                ProductDto dto = db.Products.Find(id);
+
+                dto.Name = model.Name;
+                dto.Slug = model.Name.Replace(" ", "-").ToLower();
+                dto.Price = model.Price;
+                dto.Description = model.Description;
+                dto.CategoryId = model.CategoryId;
+                dto.ImageName = model.ImageName;
+
+                CategoryDto catDto = db.Categories.FirstOrDefault(c => c.Id == model.CategoryId);
+                dto.CategoryName = catDto.Name;
+
+                db.SaveChanges();
+            }
+
+            // set TempData msg
+            TempData["SM"] = "Product edited successfully";
+
+            #region Image Upload
+
+            // check for file upload
+            if (file != null && file.ContentLength > 0)
+            {
+
+                // get file extension
+                string ext = file.ContentType.ToLower();
+
+                // verify file extension
+                if (ext != "image/jpg" &&
+                    ext != "image/jpeg" &&
+                    ext != "image/pjpeg" &&
+                    ext != "image/gif" &&
+                    ext != "image/x-png" &&
+                    ext != "image/png")
+                {
+                    using (Db db = new Db())
+                    {
+                        ModelState.AddModelError("", "The image was not uploaded - wrong image extension.");
+                        return View(model);
+                    }
+
+                }
+
+                // set upload directory paths
+                var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\Uploads", Server.MapPath(@"\")));
+                var pathString1 = Path.Combine(originalDirectory.ToString(), "Products\\" + id.ToString());
+                var pathString2 = Path.Combine(originalDirectory.ToString(), "Products\\" + id.ToString() + "\\Thumbs");
+
+                // delete files from directories
+                DirectoryInfo directoryInfo1 = new DirectoryInfo(pathString1);
+                DirectoryInfo directoryInfo2 = new DirectoryInfo(pathString2);
+
+                foreach (FileInfo file2 in directoryInfo1.GetFiles())
+                {
+                    file2.Delete();
+                }
+
+                foreach (FileInfo file3 in directoryInfo2.GetFiles())
+                {
+                    file3.Delete();
+                }
+
+                // save image name
+                string imageName = file.FileName;
+
+                using(Db db = new Db())
+                {
+                    ProductDto dto = db.Products.Find(id);
+                    dto.ImageName = imageName;
+                    db.SaveChanges();
+                }
+
+                // save original and thumb images
+                var path = string.Format("{0}\\{1}", pathString1, imageName);
+                var path2 = string.Format("{0}\\{1}", pathString2, imageName);
+
+                file.SaveAs(path);
+
+                // Create and save thumb of the original
+                WebImage img = new WebImage(file.InputStream);
+                img.Resize(200, 200);
+                img.Save(path2);
+
+
+            }
+            // redirect
+
+            #endregion
+
+            // redirect
+            return RedirectToAction("EditProduct");
         }
     }
 }
