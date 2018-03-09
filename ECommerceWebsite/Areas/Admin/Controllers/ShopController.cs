@@ -516,10 +516,10 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
         {
             ProductViewModel model;
 
-            using(Db db = new Db())
+            using (Db db = new Db())
             {
-                ProductDto dto = db.Products.Find(id);
-                model = new ProductViewModel(dto);
+                ProductDto product = db.Products.Find(id);
+                model = new ProductViewModel(product);
             }
 
             return View(model);
@@ -531,14 +531,22 @@ namespace ECommerceWebsite.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteProduct(int id)
         {
-            using(Db db = new Db())
+            using (Db db = new Db())
             {
                 ProductDto product = db.Products.FirstOrDefault(p => p.Id == id);
                 db.Products.Remove(product);
                 db.SaveChanges();
             }
 
+            // delete product folder
+            var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\Uploads", Server.MapPath(@"\")));
+            string pathString = Path.Combine(originalDirectory.ToString(), "Products\\" + id.ToString());
+
+            if (Directory.Exists(pathString))
+                Directory.Delete(pathString, true);
+
             return RedirectToAction("Products", "Shop");
         }
+
     }
 }
