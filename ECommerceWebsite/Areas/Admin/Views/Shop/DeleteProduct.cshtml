@@ -17,6 +17,7 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Description)
         </dt>
@@ -40,6 +41,7 @@
         <dd>
             @Html.DisplayFor(model => model.CategoryName)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.ImageName)
         </dt>
@@ -54,11 +56,12 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default btn-danger btn-sm" /> 
-                <a type="button" class="btn btn-primary btn-sm" href="@Url.Action("Products")">
-                    <span class="glyphicon glyphicon-list"></span>
-                    <span>Back to List</span>
-                </a>
+            <a type="button" class="btn btn-primary btn-sm" href="@Url.Action("Products")">
+                <span class="glyphicon glyphicon-list"></span>
+                <span>Back to List</span>
+            </a>
+            <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
         </div>
     }
 </div>
+
